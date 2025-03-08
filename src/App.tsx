@@ -21,28 +21,36 @@ function App() {
     { img: img5, id: 5 },
     { img: img6, id: 6 },
   ];
-  // const feedbackImages = [
-  //   { pfp: pfp1, id: 7 },
-  //   { pfp: pfp2, id: 8 },
-  //   { pfp: pfp3, id: 9 },
-  // ];
+
   const [counter, setCounter] = useState(0);
-  const observer = new IntersectionObserver((entries) => {
+  const observer1 = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("show");
+        entry.target.classList.add("show1");
       } else {
-        entry.target.classList.remove("show");
+        entry.target.classList.remove("show1");
+      }
+    });
+  });
+  const observer2 = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show2");
+      } else {
+        entry.target.classList.remove("show2");
       }
     });
   });
   useEffect(() => {
-    const hiddenElements = document.querySelectorAll(".pop-left");
-    hiddenElements.forEach((el) => {
-      observer.observe(el);
+    const hiddenElements1 = document.querySelectorAll(".pop-left");
+    const hiddenElements2 = document.querySelectorAll(".pop-right");
+    hiddenElements1.forEach((el) => {
+      observer1.observe(el);
+    });
+    hiddenElements2.forEach((el) => {
+      observer2.observe(el);
     });
   });
-  // const projectElements = document.querySelectorAll(".projectImg");
   function right() {
     if (counter >= 2) return null;
     else setCounter((p) => p + 1);
@@ -79,7 +87,7 @@ function App() {
         </section>
       </header>
       <main>
-        <section className="brand pop-left capitalize w-[70%] my-15 mx-auto translate-x-[20%]">
+        <section className="brand pop-right capitalize w-[70%] my-15 mx-auto translate-x-[-20%]">
           <div className="title flex flex-col items-center mb-3">
             <h2>
               <b>about</b>
@@ -166,7 +174,7 @@ function App() {
             </div>
           </div>
         </section>
-        <section className="feedback pop-left capitalize w-[70%] mb-40 mx-auto translate-x-[20%]">
+        <section className="feedback pop-right capitalize w-[70%] mb-40 mx-auto translate-x-[-20%]">
           <div className="title flex flex-col items-center mb-10">
             <h2>
               <b>customer</b>

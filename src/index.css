@@ -16,8 +16,11 @@
     font-weight: bold;
   }
 }
-.show {
+.show1 {
   animation: pop-left 1s;
+}
+.show2 {
+  animation: pop-right 1s;
 }
 .hero-text,
 .brand,
@@ -44,5 +47,14 @@
   100% {
     opacity: 1;
     transform: translateX(-20%);
+  }
+}
+@keyframes pop-right {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(20%);
   }
 }
