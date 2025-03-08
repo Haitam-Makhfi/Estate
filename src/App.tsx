@@ -2,21 +2,22 @@
 // import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import logo from "./images/estate logo no-bg.png";
 import apartment from "./images/apartment.jpg";
+import { useEffect } from "react";
 function App() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("show");
-        // entry.target.classList.remove("hidden");
       } else {
         entry.target.classList.remove("show");
-        // entry.target.classList.add("hidden");
       }
     });
   });
-  const hiddenElements = document.querySelectorAll(".brand");
-  hiddenElements.forEach((el) => {
-    observer.observe(el);
+  useEffect(() => {
+    const hiddenElements = document.querySelectorAll(".pop-left");
+    hiddenElements.forEach((el) => {
+      observer.observe(el);
+    });
   });
   return (
     <>
@@ -46,7 +47,7 @@ function App() {
         </section>
       </header>
       <main>
-        <section className="brand  capitalize w-[70%] mx-auto pb-80 translate-x-[20%]">
+        <section className="brand pop-left capitalize w-[70%] mx-auto pb-80 translate-x-[20%]">
           <div className="title flex flex-col items-center mt-10 mb-3">
             <h2>
               <b>about</b>
