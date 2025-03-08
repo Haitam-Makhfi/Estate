@@ -166,7 +166,7 @@ function App() {
             </div>
           </div>
         </section>
-        <section className="feedback pop-left capitalize w-[70%] my-15 mx-auto translate-x-[20%] min-h-[100vh]">
+        <section className="feedback pop-left capitalize w-[70%] mb-40 mx-auto translate-x-[20%]">
           <div className="title flex flex-col items-center mb-10">
             <h2>
               <b>customer</b>
@@ -247,6 +247,46 @@ function App() {
             </div>
           </div>
         </section>
+        <footer className="bg-blue-950 min-h-[30vh] grid grid-cols-[2fr_1fr_2fr] px-15 capitalize">
+          <div className="footer-main-content pt-2">
+            <img src={logo} alt="logo" className="w-18 h-18" />
+            <p className="text-slate-300 text-[13px] font-medium pl-5 w-[60ch]">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
+              harum, quo id minus illo recusandae dolorem vel voluptatum
+              assumenda ad.
+            </p>
+          </div>
+          <div className="links pt-5 ">
+            <span className="text-white text-lg font-bold">company</span>
+            <ul className="capitalize text-slate-400 font-bold mt-3  text-sm leading-7 ">
+              <li>home</li>
+              <li>about us</li>
+              <li>contact us</li>
+              <li>privacy policy</li>
+            </ul>
+          </div>
+          <div className="subscription pt-5 ">
+            <span className="text-white text-lg font-bold">
+              subscribe to our newsletter
+            </span>
+            <p className="text-slate-300 text-[13px] w-[40ch] font-medium mt-3">
+              the latest news,articles,and resources,sent to your inbox weekly
+            </p>
+            <div className="wrap mt-3">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="px-2 py-1 rounded-xs font-bold bg-blue-900 text-slate-100 outline-0"
+              />
+              <button className="cursor-pointer bg-sky-600 px-3 h-9 ml-3 text-white rounded-sm font-light">
+                Subscribe
+              </button>
+            </div>
+          </div>
+          <div className="cr text-center col-span-3 text-white text-sm font-light pt-5">
+            copyright 2024&copy;greatStack.all rights reserved
+          </div>
+        </footer>
       </main>
     </>
   );
