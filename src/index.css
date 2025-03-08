@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@layer base {
+  h1 {
+    @apply text-6xl font-bold text-center;
+  }
+  h2 {
+    @apply text-3xl text-center;
+  }
+  header {
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+      url(./images/house-1867187_1920.jpg);
+    background-position: center;
+    background-size: cover;
+  }
+  button {
+    font-weight: bold;
+  }
+}
+.show {
+  animation: pop-left 1s;
+}
+.hero-text,
+.brand {
+  animation-fill-mode: forwards;
+}
+.apartment-img {
+  border-radius: 30% 60% 0 0;
+}
+@keyframes pop-up {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
+@keyframes pop-left {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-20%);
+  }
+}
