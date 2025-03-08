@@ -2,8 +2,23 @@
 // import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import logo from "./images/estate logo no-bg.png";
 import apartment from "./images/apartment.jpg";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import img1 from "./images/ai-generated-8699185_1280.jpg";
+import img2 from "./images/house-8372418_1280.jpg";
+import img3 from "./images/residence-2219972_1280.jpg";
+import img4 from "./images/villa-4555818_1280.jpg";
+import img5 from "./images/villa-6482427_1280.jpg";
+import img6 from "./images/villa-7303286_1280.jpg";
 function App() {
+  const projectImgs = [
+    { img: img1, id: 1 },
+    { img: img2, id: 2 },
+    { img: img3, id: 3 },
+    { img: img4, id: 4 },
+    { img: img5, id: 5 },
+    { img: img6, id: 6 },
+  ];
+  const [counter, setCounter] = useState(0);
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -19,6 +34,15 @@ function App() {
       observer.observe(el);
     });
   });
+  // const projectElements = document.querySelectorAll(".projectImg");
+  function right() {
+    if (counter >= 2) return null;
+    else setCounter((p) => p + 1);
+  }
+  function left() {
+    if (counter <= 0) return null;
+    else setCounter((p) => p - 1);
+  }
   return (
     <>
       <header className="w-full h-[100vh] text-white capitalize relative">
@@ -47,8 +71,8 @@ function App() {
         </section>
       </header>
       <main>
-        <section className="brand pop-left capitalize w-[70%] mx-auto pb-80 translate-x-[20%]">
-          <div className="title flex flex-col items-center mt-10 mb-3">
+        <section className="brand pop-left capitalize w-[70%] my-15 mx-auto translate-x-[20%]">
+          <div className="title flex flex-col items-center mb-3">
             <h2>
               <b>about</b>
               <span className="border-b-1 ml-3">Our brand</span>
@@ -90,6 +114,59 @@ function App() {
               alt="apartment building"
               className="apartment-img w-[48%] h-[30rem] object-cover object-center"
             />
+          </div>
+        </section>
+        <section className="projects pop-left capitalize w-[70%] my-15 mx-auto translate-x-[20%]">
+          <div className="title flex flex-col items-center mb-3">
+            <h2>
+              <b>projects</b>
+              <span className="border-b-1 ml-3">Completed</span>
+            </h2>
+            <p className="mt-3 w-70 text-center text-slate-500 text-sm">
+              crafting spaces, building legacies-explore our portfolio
+            </p>
+          </div>
+          <div className="wraper">
+            <div className="galery-controles font-bold">
+              <span
+                className=" py-1 px-2 rounded-md text-sky-600 text-xl bg-white cursor-pointer"
+                onClick={left}
+              >
+                &lt;
+              </span>
+              <span
+                className="galery-controles py-1 px-2 rounded-md text-sky-600 text-xl bg-white cursor-pointer ml-2"
+                onClick={right}
+              >
+                &gt;
+              </span>
+            </div>
+            <div className="img-container flex gap-4 overflow-hidden pt-7">
+              {projectImgs.map((img) => {
+                return (
+                  <>
+                    <img
+                      className="w-60 object-cover object-center projectImg transition blur-[2px] hover:blur-none cursor-pointer"
+                      src={img.img}
+                      alt="project image"
+                      key={img.id}
+                      style={{ translate: `${-120 * counter}%` }}
+                    />
+                  </>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+        <section className="feedback pop-left capitalize w-[70%] my-15 mx-auto translate-x-[20%] min-h-[100vh]">
+          <div className="title flex flex-col items-center mb-3">
+            <h2>
+              <b>customer</b>
+              <span className="border-b-1 ml-3">Testimonials</span>
+            </h2>
+            <p className="mt-3 w-70 text-center text-slate-500 text-sm">
+              real stories from those who found home with us
+            </p>
           </div>
         </section>
       </main>

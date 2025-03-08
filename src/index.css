@@ -20,7 +20,9 @@
   animation: pop-left 1s;
 }
 .hero-text,
-.brand {
+.brand,
+.projects,
+.feedback {
   animation-fill-mode: forwards;
 }
 .apartment-img {
