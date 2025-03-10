@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faStar, faX } from "@fortawesome/free-solid-svg-icons";
 import logo from "./images/estate logo no-bg.png";
 import apartment from "./images/apartment.jpg";
 import { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ function App() {
     { img: img5, id: 5 },
     { img: img6, id: 6 },
   ];
-
+  const [bool, setBool] = useState(false);
   const [counter, setCounter] = useState(0);
   const observer1 = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -52,8 +52,13 @@ function App() {
     });
   });
   function right() {
-    if (counter >= 2) return null;
-    else setCounter((p) => p + 1);
+    if (window.innerWidth <= 768) {
+      if (counter >= 5) return null;
+      else setCounter((p) => p + 1);
+    } else {
+      if (counter >= 2) return null;
+      else setCounter((p) => p + 1);
+    }
   }
   function left() {
     if (counter <= 0) return null;
@@ -62,25 +67,63 @@ function App() {
   return (
     <>
       <header className="w-full h-[100vh] text-white capitalize relative">
-        <nav className="px-10  flex justify-between items-center">
+        <nav className=" px-3 sm:px-10  flex justify-between items-center">
           <img src={logo} alt="logo image" className="w-20" />
-          <ul className="flex gap-5 cursor-pointer">
+          <ul className=" gap-5 cursor-pointer hidden sm:flex">
             <li className="hover:text-slate-400">home</li>
             <li className="hover:text-slate-400">about</li>
             <li className="hover:text-slate-400">projects</li>
             <li className="hover:text-slate-400">testimonials</li>
           </ul>
-          <button className="cursor-pointer bg-white text-black px-5 py-2 rounded-3xl">
+          <button className="cursor-pointer bg-white text-black px-5 py-2 rounded-3xl hidden sm:block">
             Sign up
           </button>
+          <button
+            className="text-3xl mr-3 cursor-pointer sm:hidden"
+            onClick={() => {
+              setBool(true);
+              console.log(bool);
+            }}
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </button>
         </nav>
-        <section className="hero-text absolute top-[50%] left-[50%] translate-x-[-50%] animate-[pop-up_1s]">
-          <h1>explore homes that fit your dreams</h1>
+        <div
+          className="modal bg-white w-[80%] h-full absolute right-0 top-0 z-10 animate-[nav-left_0.8s] translate-x-[100%]"
+          style={bool ? { display: "block" } : { display: "none" }}
+        >
+          <div
+            className="flex justify-end mr-6.5 mt-7 text-black font-bold  text-2xl cursor-pointer"
+            onClick={() => {
+              setBool(false);
+            }}
+          >
+            <FontAwesomeIcon icon={faX} />
+          </div>
+          <ul className=" gap-5 flex flex-col font-bold items-center ">
+            <li className="text-black cursor-pointer hover:text-slate-400 ">
+              home
+            </li>
+            <li className="text-black cursor-pointer hover:text-slate-400">
+              about
+            </li>
+            <li className="text-black cursor-pointer hover:text-slate-400">
+              projects
+            </li>
+            <li className="text-black cursor-pointer hover:text-slate-400">
+              testimonials
+            </li>
+          </ul>
+        </div>
+        <section className="hero-text w-full absolute top-[50%] left-[50%] translate-x-[-50%] animate-[pop-up_1s] flex flex-col items-center">
+          <h1 className="w-[90%] sm:w-[20ch] text-4xl lg:text-6xl font-bold text-center ">
+            explore homes that fit your dreams
+          </h1>
           <div className="flex gap-5 justify-center items-center pt-7">
             <button className="cursor-pointer border-2 rounded-lg px-5 h-12 ">
               projects
             </button>
-            <button className="cursor-pointer bg-sky-600 px-5  h-12 rounded-lg">
+            <button className="cursor-pointer bg-sky-600 px-5  h-12 rounded-lg text-nowrap">
               contact us
             </button>
           </div>
@@ -97,8 +140,8 @@ function App() {
               passionate about properties ,dedicated to your vision
             </p>
           </div>
-          <div className="wrapper flex items-center justify-between">
-            <div className="brand-content w-[48%] grid grid-cols-2">
+          <div className="wrapper flex flex-wrap md:flex-nowrap items-center  justify-center md:justify-between">
+            <div className="brand-content md:w-[48%] grid grid-cols-2 items-center order-2 md:order-1">
               <div className="years py-5">
                 <b className="text-3xl">10+</b>
                 <p>years of excellence</p>
@@ -109,7 +152,7 @@ function App() {
               </div>
               <div className="delivered py-5">
                 <b className="text-3xl">20+</b>
-                <p>mn.sq.ft.delivered</p>
+                <p>mn.sq.ft. delivered</p>
               </div>
               <div className="ongoing py-5">
                 <b className="text-3xl">25+</b>
@@ -128,7 +171,7 @@ function App() {
             <img
               src={apartment}
               alt="apartment building"
-              className="apartment-img w-[48%] h-[30rem] object-cover object-center"
+              className="apartment-img md:w-[48%] md:h-[30rem] object-cover object-center order-1 md:order-2"
             />
           </div>
         </section>
@@ -157,16 +200,20 @@ function App() {
                 &gt;
               </span>
             </div>
-            <div className="img-container flex gap-4 overflow-hidden pt-7">
+            <div className="img-container flex md:gap-4 overflow-hidden pt-7">
               {projectImgs.map((img) => {
                 return (
                   <>
                     <img
-                      className="w-60 object-cover object-center projectImg transition blur-[2px] hover:blur-none cursor-pointer"
+                      className="w-full md:w-60 object-cover object-center projectImg transition  hover:blur-[2px] cursor-pointer"
                       src={img.img}
                       alt="project image"
                       key={img.id}
-                      style={{ translate: `${-120 * counter}%` }}
+                      style={
+                        window.innerWidth <= 768
+                          ? { translate: `${-100 * counter}%` }
+                          : { translate: `${-120 * counter}%` }
+                      }
                     />
                   </>
                 );
@@ -184,7 +231,7 @@ function App() {
               real stories from those who found home with us
             </p>
           </div>
-          <div className="wraper flex gap-5">
+          <div className="wraper flex flex-wrap lg:flex-nowrap gap-5">
             <div className="card bg-white rounded-xs flex flex-col items-center justify-center px-5 py-13 shadow-xl">
               <img
                 src={pfp1}
@@ -255,10 +302,10 @@ function App() {
             </div>
           </div>
         </section>
-        <footer className="bg-blue-950 min-h-[30vh] grid grid-cols-[2fr_1fr_2fr] px-15 capitalize">
+        <footer className="bg-blue-950 min-h-[30vh] grid grid-cols-1 lg:grid-cols-[2fr_1fr_2fr] px-15 capitalize">
           <div className="footer-main-content pt-2">
-            <img src={logo} alt="logo" className="w-18 h-18" />
-            <p className="text-slate-300 text-[13px] font-medium pl-5 w-[60ch]">
+            <img src={logo} alt="logo" className="w-18 h-18 -ml-5" />
+            <p className="text-slate-300 text-[13px] font-medium lg:pl-5 lg:w-[60ch]">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
               harum, quo id minus illo recusandae dolorem vel voluptatum
               assumenda ad.
@@ -273,7 +320,7 @@ function App() {
               <li>privacy policy</li>
             </ul>
           </div>
-          <div className="subscription pt-5 ">
+          <div className="subscription pt-5 hidden lg:block">
             <span className="text-white text-lg font-bold">
               subscribe to our newsletter
             </span>
@@ -291,7 +338,7 @@ function App() {
               </button>
             </div>
           </div>
-          <div className="cr text-center col-span-3 text-white text-sm font-light pt-5">
+          <div className="cr text-center lg:col-span-3 text-white text-sm font-light pt-5">
             copyright 2024&copy;greatStack.all rights reserved
           </div>
         </footer>
