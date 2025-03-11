@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faStar, faX } from "@fortawesome/free-solid-svg-icons";
 import logo from "./images/estate logo no-bg.png";
 import apartment from "./images/apartment.jpg";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import img1 from "./images/ai-generated-8699185_1280.jpg";
 import img2 from "./images/house-8372418_1280.jpg";
 import img3 from "./images/residence-2219972_1280.jpg";
@@ -12,6 +12,7 @@ import img6 from "./images/villa-7303286_1280.jpg";
 import pfp1 from "./images/download.jfif";
 import pfp2 from "./images/download (2).jfif";
 import pfp3 from "./images/download (1).jfif";
+import { ToastContainer, toast } from "react-toastify";
 function App() {
   const projectImgs = [
     { img: img1, id: 1 },
@@ -67,6 +68,12 @@ function App() {
     if (counter <= 0) return null;
     else setCounter((p) => p - 1);
   }
+  const submit = (e: FormEvent) => {
+    e.preventDefault();
+    document.querySelector("[required]")!.value
+      ? toast.success("Thank u for subscribing")
+      : toast.error("No email inputed");
+  };
   return (
     <div className="overflow-x-hidden w-full">
       <header className="w-full h-[100vh] text-white capitalize relative">
@@ -372,20 +379,24 @@ function App() {
               the latest news,articles,and resources,sent to your inbox weekly
             </p>
             <div className="wrap mt-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-2 py-1 rounded-xs font-bold bg-blue-900 text-slate-100 outline-0"
-              />
-              <button className="cursor-pointer bg-sky-600 px-3 h-9 ml-3 text-white rounded-sm font-light">
-                Subscribe
-              </button>
+              <form onSubmit={submit} noValidate>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="px-2 py-1 rounded-xs font-bold bg-blue-900 text-slate-100 outline-0 "
+                  required
+                />
+                <button className="cursor-pointer bg-sky-600 px-3 h-9 ml-3 text-white rounded-sm font-light">
+                  Subscribe
+                </button>
+              </form>
             </div>
           </div>
           <div className="cr text-center lg:col-span-3 text-white text-sm font-light pt-5">
             copyright 2024&copy;greatStack.all rights reserved
           </div>
         </footer>
+        <ToastContainer />
       </main>
     </div>
   );
