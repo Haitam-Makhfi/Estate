@@ -27,8 +27,6 @@ function App() {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("show1");
-      } else {
-        entry.target.classList.remove("show1");
       }
     });
   });
@@ -36,8 +34,6 @@ function App() {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("show2");
-      } else {
-        entry.target.classList.remove("show2");
       }
     });
   });
@@ -51,12 +47,19 @@ function App() {
       observer2.observe(el);
     });
   });
+  useEffect(() => {
+    if (bool) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [bool]);
   function right() {
     if (window.innerWidth <= 768) {
       if (counter >= 5) return null;
       else setCounter((p) => p + 1);
     } else {
-      if (counter >= 2) return null;
+      if (counter >= 3) return null;
       else setCounter((p) => p + 1);
     }
   }
@@ -65,15 +68,23 @@ function App() {
     else setCounter((p) => p - 1);
   }
   return (
-    <>
+    <div className="overflow-x-hidden w-full">
       <header className="w-full h-[100vh] text-white capitalize relative">
         <nav className=" px-3 sm:px-10  flex justify-between items-center">
           <img src={logo} alt="logo image" className="w-20" />
           <ul className=" gap-5 cursor-pointer hidden sm:flex">
-            <li className="hover:text-slate-400">home</li>
-            <li className="hover:text-slate-400">about</li>
-            <li className="hover:text-slate-400">projects</li>
-            <li className="hover:text-slate-400">testimonials</li>
+            <a className="hover:text-slate-400" href="#">
+              home
+            </a>
+            <a className="hover:text-slate-400" href="#brand">
+              about
+            </a>
+            <a className="hover:text-slate-400" href="#projects">
+              projects
+            </a>
+            <a className="hover:text-slate-400" href="#feedback">
+              testimonials
+            </a>
           </ul>
           <button className="cursor-pointer bg-white text-black px-5 py-2 rounded-3xl hidden sm:block">
             Sign up
@@ -89,7 +100,8 @@ function App() {
           </button>
         </nav>
         <div
-          className="modal bg-white w-[80%] h-full absolute right-0 top-0 z-10 animate-[nav-left_0.8s] translate-x-[100%]"
+          className={`modal w-[80%] translate-x-[100%] animate-[nav-left_0.6s] bg-white h-full absolute right-0 top-0 z-10 
+            `}
           style={bool ? { display: "block" } : { display: "none" }}
         >
           <div
@@ -101,18 +113,41 @@ function App() {
             <FontAwesomeIcon icon={faX} />
           </div>
           <ul className=" gap-5 flex flex-col font-bold items-center ">
-            <li className="text-black cursor-pointer hover:text-slate-400 ">
+            <a
+              className="text-black cursor-pointer hover:text-slate-400 "
+              onClick={() => {
+                setBool(false);
+              }}
+            >
               home
-            </li>
-            <li className="text-black cursor-pointer hover:text-slate-400">
+            </a>
+            <a
+              className="text-black cursor-pointer hover:text-slate-400"
+              href="#brand"
+              onClick={() => {
+                setBool(false);
+              }}
+            >
               about
-            </li>
-            <li className="text-black cursor-pointer hover:text-slate-400">
+            </a>
+            <a
+              className="text-black cursor-pointer hover:text-slate-400"
+              href="#projects"
+              onClick={() => {
+                setBool(false);
+              }}
+            >
               projects
-            </li>
-            <li className="text-black cursor-pointer hover:text-slate-400">
+            </a>
+            <a
+              className="text-black cursor-pointer hover:text-slate-400"
+              href="#feedback"
+              onClick={() => {
+                setBool(false);
+              }}
+            >
               testimonials
-            </li>
+            </a>
           </ul>
         </div>
         <section className="hero-text w-full absolute top-[50%] left-[50%] translate-x-[-50%] animate-[pop-up_1s] flex flex-col items-center">
@@ -130,7 +165,10 @@ function App() {
         </section>
       </header>
       <main>
-        <section className="brand pop-right capitalize w-[70%] my-15 mx-auto translate-x-[-20%]">
+        <section
+          className="brand pop-right capitalize w-[70%] my-15 mx-auto translate-x-[-20%]"
+          id="brand"
+        >
           <div className="title flex flex-col items-center mb-3">
             <h2>
               <b>about</b>
@@ -175,7 +213,10 @@ function App() {
             />
           </div>
         </section>
-        <section className="projects pop-left capitalize w-[70%] my-40 mx-auto translate-x-[20%]">
+        <section
+          className="projects pop-left capitalize w-[70%] my-40 mx-auto translate-x-[20%]"
+          id="projects"
+        >
           <div className="title flex flex-col items-center mb-3">
             <h2>
               <b>projects</b>
@@ -188,13 +229,13 @@ function App() {
           <div className="wraper">
             <div className="galery-controles font-bold">
               <span
-                className=" py-1 px-2 rounded-md text-sky-600 text-xl bg-white cursor-pointer"
+                className=" py-1 px-2 rounded-md text-sky-600 text-xl select-none bg-white cursor-pointer"
                 onClick={left}
               >
                 &lt;
               </span>
               <span
-                className="galery-controles py-1 px-2 rounded-md text-sky-600 text-xl bg-white cursor-pointer ml-2"
+                className="galery-controles py-1 px-2 rounded-md text-sky-600 text-xl bg-white cursor-pointer ml-2 select-none"
                 onClick={right}
               >
                 &gt;
@@ -221,7 +262,10 @@ function App() {
             </div>
           </div>
         </section>
-        <section className="feedback pop-right capitalize w-[70%] mb-40 mx-auto translate-x-[-20%]">
+        <section
+          className="feedback pop-right capitalize w-[70%] mb-40 mx-auto translate-x-[-20%]"
+          id="feedback"
+        >
           <div className="title flex flex-col items-center mb-10">
             <h2>
               <b>customer</b>
@@ -343,7 +387,7 @@ function App() {
           </div>
         </footer>
       </main>
-    </>
+    </div>
   );
 }
 
