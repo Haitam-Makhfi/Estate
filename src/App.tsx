@@ -216,7 +216,7 @@ function App() {
             <img
               src={apartment}
               alt="apartment building"
-              className="apartment-img md:w-[48%] md:h-[30rem] object-cover object-center order-1 md:order-2"
+              className="apartment-img w-full h-80 md:w-[48%] md:h-[30rem] object-cover object-center order-1 md:order-2"
             />
           </div>
         </section>
@@ -371,7 +371,7 @@ function App() {
               <li>privacy policy</li>
             </ul>
           </div>
-          <div className="subscription pt-5 hidden lg:block">
+          <div className="subscription pt-5 ">
             <span className="text-white text-lg font-bold">
               subscribe to our newsletter
             </span>
@@ -379,11 +379,11 @@ function App() {
               the latest news,articles,and resources,sent to your inbox weekly
             </p>
             <div className="wrap mt-3">
-              <form onSubmit={submit} noValidate>
+              <form onSubmit={submit} className="flex" noValidate>
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="px-2 py-1 rounded-xs font-bold bg-blue-900 text-slate-100 outline-0 "
+                  className="px-2 py-1 max-sm:min-w-30 rounded-xs font-bold bg-blue-900 text-slate-100 outline-0 "
                   required
                 />
                 <button className="cursor-pointer bg-sky-600 px-3 h-9 ml-3 text-white rounded-sm font-light">
